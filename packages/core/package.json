@@ -1,0 +1,14 @@
+{
+  "name": "@loy-payway/core",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "bakong-khqr": "^1.0.20",
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}

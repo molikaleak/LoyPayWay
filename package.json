@@ -1,0 +1,19 @@
+{
+  "name": "loy-payway",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open source KHQR payment middleware for Bakong merchants under the Loy Payway name.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @loy-payway/server",
+    "dev:dashboard": "npm run dev -w @loy-payway/dashboard",
+    "start:server": "npm run start -w @loy-payway/server",
+    "build:dashboard": "npm run build -w @loy-payway/dashboard",
+    "test": "npm run test -w @loy-payway/core"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

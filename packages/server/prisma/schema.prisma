@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+ 
+model Merchant {
+  id              String        @id @default(uuid())
+  apiKey          String        @unique
+  name            String
+  accountId       String
+  webhookUrl      String?
+  telegramChatId  String?
+  secretKey       String
+  isActive        Boolean       @default(true)
+  createdAt       DateTime      @default(now())
+  transactions    Transaction[]
+}
+
+model Transaction {
+  id              String    @id @default(uuid())
+  merchantId      String
+  merchant        Merchant  @relation(fields: [merchantId], references: [id])
+  status          String    @default("PENDING")
+  amount          Float
+  currency        String    @default("USD")
+  externalRef     String?
+  md5Hash         String?
+  qrString        String?   @db.Text
+  demoAutoConfirm Boolean   @default(true)
+  fromAccountId   String?
+  createdAt       DateTime  @default(now())
+  confirmedAt     DateTime?
+}
