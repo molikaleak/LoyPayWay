@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { apiRequest, formatCurrency, formatDateTime } from "../lib/api";
+import { apiRequest, formatCurrency, formatDateTime, formatRevenueByCurrency } from "../lib/api";
 import { useMerchantSession } from "./merchant-session";
 import { OnboardingCard } from "./onboarding-card";
 import { TransactionDetailDrawer } from "./transaction-detail-drawer";
@@ -16,6 +16,7 @@ export function TransactionsDashboard() {
       pendingTransactions: 0,
       expiredTransactions: 0,
       totalRevenue: 0,
+      revenueByCurrency: {},
     },
   });
   const [loading, setLoading] = useState(true);
@@ -59,6 +60,7 @@ export function TransactionsDashboard() {
 
   // Auto-show onboarding if there is no merchant yet
   const needsOnboarding = !selectedMerchant || !apiKey;
+  const revenueLines = formatRevenueByCurrency(data.stats.revenueByCurrency);
 
   return (
     <section className="stack-gap">
@@ -73,7 +75,7 @@ export function TransactionsDashboard() {
         </div>
         <div className="hero-card">
           <span>Total revenue</span>
-          <strong>{formatCurrency(data.stats.totalRevenue)}</strong>
+          <strong>{revenueLines.length > 0 ? revenueLines.join(" / ") : formatCurrency(0)}</strong>
           <small className="muted">{selectedMerchant ? selectedMerchant.accountId : "No merchant selected"}</small>
         </div>
       </div>

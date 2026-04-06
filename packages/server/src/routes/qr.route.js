@@ -100,7 +100,17 @@ router.get("/transactions", async (req, res, next) => {
     }
 
     if (!merchantId) {
-      return res.json({ transactions: [], stats: { totalTransactions: 0, successfulTransactions: 0, pendingTransactions: 0, expiredTransactions: 0, totalRevenue: 0 } });
+      return res.json({
+        transactions: [],
+        stats: {
+          totalTransactions: 0,
+          successfulTransactions: 0,
+          pendingTransactions: 0,
+          expiredTransactions: 0,
+          totalRevenue: 0,
+          revenueByCurrency: {},
+        },
+      });
     }
 
     res.json({

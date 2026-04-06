@@ -198,13 +198,22 @@ async function listTransactions(filter = {}) {
 async function getStats(filter = {}) {
   const items = await listTransactions(filter);
   const success = items.filter((tx) => tx.status === "SUCCESS");
-  const revenue = success.reduce((sum, tx) => sum + Number(tx.amount || 0), 0);
+  const revenueByCurrency = success.reduce((totals, tx) => {
+    const currency = String(tx.currency || "USD").toUpperCase();
+    const amount = Number(tx.amount || 0);
+    totals[currency] = Number(((totals[currency] || 0) + amount).toFixed(2));
+    return totals;
+  }, {});
+
+  const totalRevenue = Object.values(revenueByCurrency).reduce((sum, amount) => sum + Number(amount || 0), 0);
+
   return {
     totalTransactions: items.length,
     successfulTransactions: success.length,
     pendingTransactions: items.filter((tx) => tx.status === "PENDING").length,
     expiredTransactions: items.filter((tx) => tx.status === "EXPIRED").length,
-    totalRevenue: Number(revenue.toFixed(2)),
+    totalRevenue: Number(totalRevenue.toFixed(2)),
+    revenueByCurrency,
   };
 }
 

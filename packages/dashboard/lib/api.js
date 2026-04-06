@@ -69,6 +69,13 @@ export function formatCurrency(amount, currency = "USD") {
   }).format(Number(amount || 0));
 }
 
+export function formatRevenueByCurrency(revenueByCurrency = {}) {
+  return Object.entries(revenueByCurrency)
+    .filter(([, amount]) => Number(amount || 0) > 0)
+    .sort(([currencyA], [currencyB]) => currencyA.localeCompare(currencyB))
+    .map(([currency, amount]) => formatCurrency(amount, currency));
+}
+
 export function formatDateTime(value) {
   if (!value) {
     return "N/A";

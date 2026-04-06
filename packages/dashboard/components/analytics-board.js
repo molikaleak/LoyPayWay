@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { apiRequest, formatCurrency } from "../lib/api";
+import { apiRequest, formatCurrency, formatRevenueByCurrency } from "../lib/api";
 import { useMerchantSession } from "./merchant-session";
 
 function groupDailyRevenue(transactions) {
@@ -9,11 +9,16 @@ function groupDailyRevenue(transactions) {
   transactions
     .filter((item) => item.status === "SUCCESS")
     .forEach((item) => {
-      const key = new Date(item.createdAt).toLocaleDateString("en-CA");
+      const date = new Date(item.createdAt).toLocaleDateString("en-CA");
+      const currency = String(item.currency || "USD").toUpperCase();
+      const key = `${date}:${currency}`;
       map.set(key, parseFloat(map.get(key) || 0) + parseFloat(item.amount || 0));
     });
 
-  return [...map.entries()].map(([date, total]) => ({ date, total }));
+  return [...map.entries()].map(([key, total]) => {
+    const [date, currency] = key.split(":");
+    return { date, currency, total };
+  });
 }
 
 export function AnalyticsBoard() {
@@ -42,6 +47,7 @@ export function AnalyticsBoard() {
 
   const series = useMemo(() => groupDailyRevenue(transactions), [transactions]);
   const peak = Math.max(...series.map((item) => item.total), 1);
+  const revenueLines = formatRevenueByCurrency(stats?.revenueByCurrency);
 
   return (
     <section className="stack-gap">
@@ -55,12 +61,12 @@ export function AnalyticsBoard() {
             <div className="empty-state">No successful transactions yet for analytics.</div>
           ) : (
             series.map((item) => (
-              <div className="chart-row" key={item.date}>
-                <span>{item.date}</span>
+              <div className="chart-row" key={`${item.date}-${item.currency}`}>
+                <span>{item.date} {item.currency}</span>
                 <div className="chart-bar-wrap">
                   <div className="chart-bar" style={{ width: `${(item.total / peak) * 100}%` }} />
                 </div>
-                <strong>{formatCurrency(item.total)}</strong>
+                <strong>{formatCurrency(item.total, item.currency)}</strong>
               </div>
             ))
           )}
@@ -70,7 +76,7 @@ export function AnalyticsBoard() {
       <section className="metrics">
         <article className="metric">
           <span>Revenue</span>
-          <strong>{formatCurrency(stats?.totalRevenue || 0)}</strong>
+          <strong>{revenueLines.length > 0 ? revenueLines.join(" / ") : formatCurrency(0)}</strong>
         </article>
         <article className="metric">
           <span>Conversion</span>
@@ -92,4 +98,3 @@ export function AnalyticsBoard() {
     </section>
   );
 }
-
