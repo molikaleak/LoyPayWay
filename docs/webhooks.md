@@ -169,6 +169,7 @@ This sets `webhookUrl` to `null` internally and no further notifications will be
 | `md5Hash` | `string` | 32-character hex MD5 hash used for Bakong transfer matching. |
 | `qrString` | `string` | The original KHQR payload string. |
 | `fromAccountId` | `string \| null` | Bakong account ID of the payer (e.g. `"payer@bakong"`). |
+| `toAccountId` | `string \| null` | Bakong account ID of the merchant / recipient (e.g. `"merchant@bank"`). |
 | `createdAt` | `string` (ISO 8601) | Timestamp when the transaction was created. |
 | `confirmedAt` | `string` (ISO 8601) | Timestamp when the payment was confirmed. |
 
@@ -188,6 +189,7 @@ This sets `webhookUrl` to `null` internally and no further notifications will be
     "md5Hash": "3e25960a79dbc69b674cd4ec67a72c62",
     "qrString": "00020101021229180014merchant@aclb520400005303840540404.505802KH5913Sunrise Coffee6010Phnom Penh63041234",
     "fromAccountId": "payer@bakong",
+    "toAccountId": "sunrise_coffee@aclb",
     "createdAt": "2026-01-15T10:30:00.000Z",
     "confirmedAt": "2026-01-15T10:35:12.000Z"
   }
@@ -383,6 +385,7 @@ type Transaction struct {
 	MD5Hash       string  `json:"md5Hash"`
 	QRString      string  `json:"qrString"`
 	FromAccountID string  `json:"fromAccountId"`
+	ToAccountID   string  `json:"toAccountId"`
 	CreatedAt     string  `json:"createdAt"`
 	ConfirmedAt   string  `json:"confirmedAt"`
 }
@@ -608,11 +611,12 @@ Payment received
 Merchant: Sunrise Coffee
 Amount: 4.50 USD
 From: payer@bakong
+To: sunrise_coffee@aclb
 Reference: order-2026-0042
 ```
 
 > [!NOTE]
-> If `fromAccountId` or `externalRef` is not available, the message displays `"N/A"` for that field. Telegram notifications are independent of webhooks — you can use either or both.
+> If `fromAccountId`, `toAccountId`, or `externalRef` is not available, the message displays `"N/A"` for that field. Telegram notifications are independent of webhooks — you can use either or both.
 
 ---
 
