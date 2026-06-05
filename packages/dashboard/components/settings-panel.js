@@ -53,7 +53,7 @@ export function SettingsPanel() {
       <section className="panel stack-gap">
         <div className="panel-header">
           <h2>Merchant settings</h2>
-          <span className="muted">Update onboarding details without leaving the UI</span>
+          <span className="muted">Update merchant profile and configurations.</span>
         </div>
         <form className="form-grid" onSubmit={handleSave}>
           <label className="field">
@@ -97,8 +97,8 @@ export function SettingsPanel() {
 
       <section className="panel stack-gap">
         <div className="panel-header">
-          <h3>Merchant credentials</h3>
-          <span className="muted">Stored in local browser session for demo use</span>
+          <h3>API credentials</h3>
+          <span className="muted">Merchant credentials for API integration.</span>
         </div>
         {selectedMerchant ? (
           <div className="detail-grid">

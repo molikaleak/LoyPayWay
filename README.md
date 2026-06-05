@@ -1,5 +1,9 @@
 # Loy Payway
 
+[![CI Status](https://github.com/molikaleak/LoyPayWay/actions/workflows/ci.yml/badge.svg)](https://github.com/molikaleak/LoyPayWay/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D20-green.svg)](package.json)
+
 Open source KHQR payment middleware for Cambodia's Bakong ecosystem.
 
 Loy Payway helps merchants and integrators generate KHQR payment payloads, track transaction status, and send downstream notifications without manually checking every transfer.
@@ -26,6 +30,15 @@ Demo mode is enabled by default so the project can be tested locally before real
 - Demo-first local development flow
 - Next.js dashboard starter for transaction visibility
 - Docker and CI scaffolding for open source distribution
+
+## Documentation
+
+Detailed integration and configuration guides are available:
+
+- 📖 **[API Reference](docs/api-reference.md)** — Complete endpoint specifications, authentication methods, schemas, and rate limits.
+- 🔗 **[Webhook Integration Guide](docs/webhooks.md)** — Detailed guide on receiving notifications, verifying signatures (HMAC-SHA256), and setting up Telegram alerts.
+- 🏦 **[Bakong & KHQR Guide](docs/bakong-integration.md)** — In-depth architectural details, account formats, currency handling, and live integration steps.
+- 🧪 **[Testing Guide](docs/TESTING.md)** — How to run unit tests, dashboard builds, and manual API smoke tests.
 
 ## Repository Structure
 
@@ -62,8 +75,8 @@ loy-payway/
 ### Installation
 
 ```bash
-git clone <your-repo-url>
-cd loy-payway
+git clone https://github.com/molikaleak/LoyPayWay.git
+cd LoyPayWay
 cp .env.example .env
 npm install
 ```
@@ -161,7 +174,7 @@ npm test
 npm run build:dashboard
 ```
 
-For full testing steps, smoke tests, and expected results, see [docs/TESTING.md](/Users/molika/Desktop/Cool%20PayWay/docs/TESTING.md).
+For full testing steps, smoke tests, and expected results, see [docs/TESTING.md](docs/TESTING.md).
 
 ## Docker
 
@@ -201,5 +214,4 @@ Please keep changes focused, document new environment variables, and include rep
 
 ## License
 
-MIT. See [LICENSE](/Users/molika/Desktop/Cool%20PayWay/LICENSE).
-# LoyPayWay
+MIT. See [LICENSE](LICENSE).

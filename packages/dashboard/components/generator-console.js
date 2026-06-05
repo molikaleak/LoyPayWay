@@ -116,14 +116,7 @@ export function GeneratorConsole() {
               placeholder="Optional invoice or order number"
             />
           </label>
-          <label className="checkbox-field field-wide">
-            <input
-              type="checkbox"
-              checked={form.demoAutoConfirm}
-              onChange={(event) => setForm({ ...form, demoAutoConfirm: event.target.checked })}
-            />
-            <span>Auto-confirm in demo mode</span>
-          </label>
+
           <button className="button button-primary" type="submit" disabled={submitting}>
             {submitting ? "Generating..." : "Generate QR"}
           </button>

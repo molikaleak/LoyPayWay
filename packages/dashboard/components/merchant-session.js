@@ -45,12 +45,14 @@ export function MerchantSessionProvider({ children }) {
   }
 
   useEffect(() => {
+    let restoredId = "";
     const raw = window.localStorage.getItem(getSessionStorageKey());
     if (raw) {
       try {
         const parsed = JSON.parse(raw);
         if (parsed.selectedMerchantId) {
           setSelectedMerchantId(parsed.selectedMerchantId);
+          restoredId = parsed.selectedMerchantId;
         }
         if (parsed.apiKey) {
           setApiKey(parsed.apiKey);
@@ -60,7 +62,7 @@ export function MerchantSessionProvider({ children }) {
       }
     }
 
-    refreshMerchants();
+    refreshMerchants(restoredId);
   }, []);
 
   useEffect(() => {

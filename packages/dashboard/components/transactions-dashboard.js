@@ -68,10 +68,7 @@ export function TransactionsDashboard() {
         <div className="hero-copy">
           <p className="eyebrow">Merchant Ops</p>
           <h2>Payment command center</h2>
-          <p className="muted">
-            Run onboarding, monitor payment state changes, and keep a usable demo loop even before
-            live Bakong credentials arrive.
-          </p>
+
         </div>
         <div className="hero-card">
           <span>Total revenue</span>

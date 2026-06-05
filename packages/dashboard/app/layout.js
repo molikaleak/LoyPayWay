@@ -19,16 +19,8 @@ export default function RootLayout({ children }) {
               <div className="brand-card">
                 <p className="eyebrow">Cambodia Bakong Middleware</p>
                 <h1>Loy Payway</h1>
-                <p className="muted">
-                  A practical merchant ops layer for live QR generation, payment verification, and
-                  webhook dispatch.
-                </p>
               </div>
               <SidebarNav />
-              <div className="sidebar-note">
-                <span className="muted">Demo-first</span>
-                <strong>Works locally before live Bakong credentials are ready.</strong>
-              </div>
             </aside>
             <main className="main">
               <ShellHeader />

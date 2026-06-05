@@ -9,11 +9,11 @@ export function ShellHeader() {
   return (
     <header className="topbar">
       <div>
-        <p className="eyebrow">Live Demo Workspace</p>
+        <p className="eyebrow">Loy Payway Gateway</p>
         <h2 className="topbar-title">{selectedMerchant?.name || "Choose a merchant"}</h2>
       </div>
       <div className="topbar-controls">
-        <span className="mode-pill">{loading ? "Loading" : "Demo Ready"}</span>
+        <span className="mode-pill">{loading ? "Loading..." : "System Active"}</span>
         <select
           className="select"
           value={selectedMerchantId}

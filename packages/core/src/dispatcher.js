@@ -18,6 +18,10 @@ function signPayload(secretKey, body) {
 }
 
 async function dispatch(merchant, txData) {
+  if (txData.status !== "SUCCESS") {
+    return;
+  }
+
   const body = {
     event: "payment.success",
     merchantId: merchant.id,

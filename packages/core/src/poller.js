@@ -57,9 +57,13 @@ function createBakongClient() {
   const baseURL = process.env.BAKONG_API_BASE || "https://api-bakong.nbc.gov.kh";
 
   if (demoEnabled || !process.env.BAKONG_BEARER_TOKEN) {
+    const pollStartTimes = new Map();
     return {
       async checkTransactionByMd5(md5Hash, transaction) {
-        const age = Date.now() - new Date(transaction.createdAt).getTime();
+        if (!pollStartTimes.has(transaction.id)) {
+          pollStartTimes.set(transaction.id, Date.now());
+        }
+        const age = Date.now() - pollStartTimes.get(transaction.id);
         if (transaction.demoAutoConfirm && age >= 3000) {
           return {
             status: "SUCCESS",

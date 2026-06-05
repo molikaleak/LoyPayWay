@@ -33,10 +33,13 @@ async function initDatabase() {
     // Verify the connection actually works (lazy connect might not throw)
     await prisma.$queryRawUnsafe('SELECT 1');
     
+    // Verify tables exist (throws if migrations haven't been run)
+    await prisma.merchant.count();
+    
     useDatabase = true;
     console.log("[store] Connected to PostgreSQL via Prisma.");
   } catch (error) {
-    console.warn("[store] Database is configured but unreachable. Falling back to memory storage.");
+    console.warn("[store] Database is configured but unreachable or tables are missing. Falling back to memory storage.");
     console.warn("[store]", error.message);
     prisma = null;
     useDatabase = false;
